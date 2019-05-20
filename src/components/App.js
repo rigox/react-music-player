@@ -15,7 +15,7 @@ class App extends React.Component{
             return(
                 <div>
                     <BrowserRouter>
-                    <div>
+                    <div className="ui container">
                     <Header />
                     <Route path="/Form"  exact component={Form} />
                     <Route path="/Player" exact component={Player} />

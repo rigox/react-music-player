@@ -59,31 +59,43 @@ app.get('/test',(req,res)=>{
 })
 
 
+
+
+
 app.post('/upload',(req,res)=>{
     let f  =  new form.IncomingForm()
     
     f.parse(req,(err,fields,files)=>{
          if(err){throw err }
-    
+          
          
+        console.log(fields)
+
            var track  = new Track({
-                 name:a.title,
-                 Artist:a.Artist,
-                 Genre:a.Genre,
+                 name:null,
+                 Artist:null,
+                 Genre:null,
                  song_path:__dirname+'/music'+files.song_file.name,
-                 Artwork:'NoNe'
+                 Artwork:__dirname +'/Artwork'+files.artwork_file.name
            })
-        track.save()
 
 
-      })
+      
         
 
-
+          
           var path  =  __dirname + '/music/'+ files.song_file.name;
+          var artwork_path  = __dirname +'/Artwork/'+files.artwork_file.name;
+          var read_art  =  fs.createReadStream(files.artwork_file.path)
+          var write_art  = fs.createWriteStream(artwork_path)
           var readStream =  fs.createReadStream(files.song_file.path)
-          var writeStream  =  fs.createWriteStream(path)
+          var writeStream  =  fs.createWriteStream(artwork_path)
           readStream.pipe(writeStream)
+          read_art.pipe(write_art)
+           
+          track.save()
+
+        });
     });
 
 

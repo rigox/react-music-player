@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import {Howl, Howler} from 'howler';
 class Player extends React.Component{
 
     state={

@@ -16,7 +16,7 @@ class Options extends React.Component{
     
     render(){
            return(
-               <select name="Genre">
+               <select name="Genre" className="ui fluid dropdown">
                         {this.renderOptions()}
                </select>
            )
