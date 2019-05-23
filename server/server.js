@@ -72,11 +72,11 @@ app.post('/upload',(req,res)=>{
         console.log(fields)
 
            var track  = new Track({
-                 name:null,
-                 Artist:null,
-                 Genre:null,
-                 song_path:__dirname+'/music'+files.song_file.name,
-                 Artwork:__dirname +'/Artwork'+files.artwork_file.name
+                 name:fields.name,
+                 Artist:fields.Artist,
+                 Genre:fields.Genre,
+                 song_path:__dirname+'/music/'+files.song_file.name,
+                 Artwork:__dirname +'/Artwork/'+files.artwork_file.name
            })
 
 
@@ -84,12 +84,12 @@ app.post('/upload',(req,res)=>{
         
 
           
-          var path  =  __dirname + '/music/'+ files.song_file.name;
-          var artwork_path  = __dirname +'/Artwork/'+files.artwork_file.name;
+          var path  =  __dirname +'/music/'+ files.song_file.name;
+          var artwork_path  = __dirname+'/Artwork/'+files.artwork_file.name;
           var read_art  =  fs.createReadStream(files.artwork_file.path)
           var write_art  = fs.createWriteStream(artwork_path)
           var readStream =  fs.createReadStream(files.song_file.path)
-          var writeStream  =  fs.createWriteStream(artwork_path)
+          var writeStream  =  fs.createWriteStream(path)
           readStream.pipe(writeStream)
           read_art.pipe(write_art)
            
@@ -101,7 +101,27 @@ app.post('/upload',(req,res)=>{
 
 
 app.get("/music",(req,res)=>{
-    media.pipe(req,res,'./music/a.mp3')
+    media.pipe(req,res,'./music/wind.mp3')
+})
+
+app.get('/default_image',(req,res)=>{
+        res.writeHead(200,{'Content-Type':'image/jpg'})
+        var fileReader =  fs.createReadStream('./Artwork/winds.jpeg');
+        fileReader.pipe(res)
+});
+
+
+app.get('/fetch_data',(req,res)=>{
+
+     Track.find({},function(err,docs){
+
+          console.log(docs)
+
+          res.send(JSON.stringify(docs))
+     })
+
+
+
 })
 
 

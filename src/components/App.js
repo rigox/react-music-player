@@ -3,14 +3,14 @@ import  Form from './Form';
 import Player  from './Player'
 import {BrowserRouter,Route}  from 'react-router-dom'
 import Header from './Header';
+import Axios from 'axios';
+
 
 class App extends React.Component{
+   
+   
 
 
-
-
-
-   state  = {}
       render(){
             return(
                 <div>
@@ -18,8 +18,8 @@ class App extends React.Component{
                     <div className="ui container">
                     <Header />
                     <Route path="/Form"  exact component={Form} />
-                    <Route path="/Player" exact component={Player} />
-                    </div>
+                    <Route path="/Player" exact component={Player}/>
+                    </div> 
                     </BrowserRouter>
                 </div>
             )
