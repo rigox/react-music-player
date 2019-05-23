@@ -1,22 +1,20 @@
 import React from 'react';
 
 const Track =(props)=>{
-    return(<div>
-      <div className="row centered">
-            <div className="ui relaxed horizontal list">
-            <div className="item">
-                {props.Name}
+    return(
+            <div   className="ui huge horizontal centered list" style={{margin:'5px', backgroundColor:'blue', borderRadius:'10px', cursor:'pointer'}}>
+            <div className="item " style={{margin:'10px'}}>
+                {props.track.name}
             </div>
-            <div className="item">
-                    {props.Artist}
+            <div className="item" style={{margin:'10px'}}>
+                    {props.track.Artist}
             </div>
-            <div className="item">
-                    {props.Genre}
-            </div>
+            <div className="item" style={{margin:'10px'}}>
+                        {props.track.Genre}
+               </div>
             </div>
 
-      </div>
-    </div>)
+    )
 }
 
 

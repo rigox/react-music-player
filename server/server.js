@@ -72,7 +72,7 @@ app.post('/upload',(req,res)=>{
         console.log(fields)
 
            var track  = new Track({
-                 name:fields.name,
+                 name:files.song_file.name,
                  Artist:fields.Artist,
                  Genre:fields.Genre,
                  song_path:__dirname+'/music/'+files.song_file.name,

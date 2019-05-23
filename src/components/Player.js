@@ -10,7 +10,7 @@ class Player extends React.Component{
           controls:true,
           music_url:"http://localhost:8080/music",
           album_url:"http://localhost:8080/default_image",
-          tracks:[]
+          tracks:[{name:"Test",Artist:"Tets",Genre:"test"}]
         }
       
 
@@ -24,8 +24,23 @@ class Player extends React.Component{
       this.setState({tracks:records})
 
       console.log(records)
+  }
+
+  makeTracks(fn){
+       var list  = this.state.tracks.map(function(a){
+              return(
+               <div className="row centered">
+              <Track  onClick={fn}  track={a} />
+              </div>
+              )
+       })
+
+       return list;
+  }
 
 
+  getID=(prop)=>{
+      console.log(prop.track._id)
   }
 
   componentWillMount(){
@@ -42,23 +57,26 @@ class Player extends React.Component{
 
       render(){
              return(
-                  <div className="ui four column grid">
+                  <div className="ui six column grid">
                   <div className="row centered">
                         <img className="ui large rounded image" src={this.state.album_url}/>
                  
                   </div>
-                   <div className="row centered">
-                   {
-                     this.state  && this.state.tracks &&
+                    <div className="row centered">
                        <ReactPlayer
                          controls={this.state.controls}
                          url={this.state.music_url}
                          height="5%"
                          width="60%"
                        />
-                   }
+                        <div className="">
+                        {this.makeTracks(this.getID)}
+                        </div>
                       </div>
-                </div>
+                      
+                       
+                      
+                      </div>
             )
       }
     }
