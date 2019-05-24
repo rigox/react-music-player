@@ -9,7 +9,7 @@ const Header = () =>{
                  </Link>
                  <div className="right menu">
                     <Link to="/Form"  className="item">
-                     Form
+                     Upload Music
                     </Link>
                  </div>
 

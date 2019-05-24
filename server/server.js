@@ -93,17 +93,27 @@ app.post('/upload',(req,res)=>{
           readStream.pipe(writeStream)
           read_art.pipe(write_art)
            
-          track.save()
+          track.save(function(err,book){
+                if(err){
+                     throw err;
+                }
+                console.log("Saved")
+                res.redirect('/Player')
+          })
 
         });
+
     });
 
 
+app.get('/music',(req,res)=>{
+     media.pipe(req,res,'./music/a.mp3')
 
-app.get("/music",(req,res)=>{
+});
+
+
+app.get("/fetch_music",(req,res)=>{
     
-  
-
     var path  =  String(req.query.path)
     media.pipe(req,res,path)
     

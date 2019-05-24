@@ -9,5 +9,8 @@ module.exports  = function(app){
       app.use(proxy("/fetch_data",{target:'http://localhost:8080'}));
       app.use(proxy("/fetch_track",{target:'http://localhost:8080'}));
       app.use(proxy("/default_image",{target:'http://localhost:8080'}));
+      app.use(proxy("/fetch_music",{target:'http://localhost:8080'}));
+
+
 
 }

@@ -9,7 +9,7 @@ class Player extends React.Component{
         state={
           track_id:'a',
           controls:true,
-          music_url:"http://localhost:8080/music/?path=default",
+          music_url:"http://localhost:8080/music",
           album_url:"http://localhost:8080/default_image",
           tracks:[],
           helper:this.helper.bind(this)
@@ -44,7 +44,7 @@ class Player extends React.Component{
 
 
   helper(prop){
-   const new_url =  'http://localhost:8080/music/?path='
+   const new_url =  'http://localhost:8080/fetch_music/?path='
    const album_url = 'http://localhost:8080/fetch_artwork/?path='
       Axios.get('/fetch_track',{
           params:{
