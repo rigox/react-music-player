@@ -101,7 +101,12 @@ app.post('/upload',(req,res)=>{
 
 
 app.get("/music",(req,res)=>{
-    media.pipe(req,res,'./music/wind.mp3')
+    
+  
+
+    var path  =  String(req.query.path)
+    media.pipe(req,res,path)
+    
 })
 
 app.get('/default_image',(req,res)=>{
@@ -109,6 +114,14 @@ app.get('/default_image',(req,res)=>{
         var fileReader =  fs.createReadStream('./Artwork/winds.jpeg');
         fileReader.pipe(res)
 });
+
+app.get('/fetch_artwork',(req,res)=>{
+       const  path =  String(req.query.path)
+       res.writeHead(200,{'Content-Type':'image/jpg'})
+       var fileReader   =  fs.createReadStream(path);
+       fileReader.pipe(res);
+
+})
 
 
 app.get('/fetch_data',(req,res)=>{
@@ -120,6 +133,21 @@ app.get('/fetch_data',(req,res)=>{
           res.send(JSON.stringify(docs))
      })
 
+
+
+})
+
+
+app.get('/fetch_track',(req,res)=>{
+   
+    if(!req.query.track_id){
+          res.send("Track not found")
+    }
+   const track_id  =  req.query.track_id
+   
+   Track.findById(track_id,(err,doc)=>{
+           res.send(JSON.stringify(doc))
+   })
 
 
 })

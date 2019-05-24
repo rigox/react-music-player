@@ -7,10 +7,12 @@ import Axios from 'axios';
 class Player extends React.Component{
 
         state={
+          track_id:'a',
           controls:true,
-          music_url:"http://localhost:8080/music",
+          music_url:"http://localhost:8080/music/?path=default",
           album_url:"http://localhost:8080/default_image",
-          tracks:[{name:"Test",Artist:"Tets",Genre:"test"}]
+          tracks:[],
+          helper:this.helper.bind(this)
         }
       
 
@@ -28,10 +30,12 @@ class Player extends React.Component{
 
   makeTracks(fn){
        var list  = this.state.tracks.map(function(a){
+                console.log()
               return(
                <div className="row centered">
-              <Track  onClick={fn}  track={a} />
+              <Track  helper={fn} track={a} />
               </div>
+              
               )
        })
 
@@ -39,18 +43,27 @@ class Player extends React.Component{
   }
 
 
-  getID=(prop)=>{
-      console.log(prop.track._id)
+  helper(prop){
+   const new_url =  'http://localhost:8080/music/?path='
+   const album_url = 'http://localhost:8080/fetch_artwork/?path='
+      Axios.get('/fetch_track',{
+          params:{
+             track_id:prop
+          }
+      }).then((a)=>{
+        this.setState({music_url:new_url+a.data.song_path})
+        this.setState({album_url:album_url+a.data.Artwork})
+      });
+
   }
 
-  componentWillMount(){
+  componentDidMount(){
      
-      this.fetchData();
+   this.fetchData();
 
 
   }
 
-  
 
 
     
@@ -66,11 +79,11 @@ class Player extends React.Component{
                        <ReactPlayer
                          controls={this.state.controls}
                          url={this.state.music_url}
-                         height="5%"
+                         height="7%"
                          width="60%"
                        />
                         <div className="">
-                        {this.makeTracks(this.getID)}
+                        {this.makeTracks(this.state.helper)}
                         </div>
                       </div>
                       
